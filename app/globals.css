@@ -8,6 +8,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Don't let the browser reflow text sizes; keeps the layout as designed. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -16,6 +19,8 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Suppress double-tap-to-zoom while keeping normal scrolling/taps. */
+  touch-action: manipulation;
 }
 
 @layer components {
