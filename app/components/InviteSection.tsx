@@ -1,5 +1,5 @@
 import { EVENT, googleMapsUrl, wazeUrl } from "@/lib/event-config";
-import { GoldDivider, Item, Stagger } from "./Motion";
+import { Diamond, Item, OrnamentDivider, Stagger } from "./Motion";
 import { CalendarIcon, MapPinIcon, NavigationIcon } from "./icons";
 
 // The invitation card: date, location, invite text, and directions buttons.
@@ -10,7 +10,10 @@ export default function InviteSection() {
       id="invite"
       className="relative z-10 mx-auto w-full max-w-2xl px-6 pt-20 sm:pt-28"
     >
-      <Stagger className="text-center">
+      <Stagger className="flex flex-col items-center text-center">
+        <Item>
+          <Diamond className="mb-5" />
+        </Item>
         <Item>
           <p className="font-body text-sm uppercase tracking-[0.4em] text-gold/80">
             Kutse
@@ -30,8 +33,17 @@ export default function InviteSection() {
 
       <Stagger className="mt-10">
         <Item>
-          <div className="card rounded-2xl p-7 sm:p-10">
+          <div className="card card-ornate rounded-2xl p-7 sm:p-10">
             <Stagger className="flex flex-col items-center gap-6 text-center">
+              {/* Invitation text lifted to the top. */}
+              <Item>
+                <p className="max-w-xl font-body text-lg font-light leading-relaxed tracking-wide text-cream/90 sm:text-xl">
+                  {EVENT.inviteText}
+                </p>
+              </Item>
+
+              <OrnamentDivider className="w-40" />
+
               <Item>
                 <div className="flex items-center gap-3 text-cream">
                   <CalendarIcon className="h-5 w-5 text-gold" />
@@ -41,7 +53,7 @@ export default function InviteSection() {
                 </div>
               </Item>
 
-              <GoldDivider className="w-24" />
+              <OrnamentDivider className="w-40" />
 
               <Item>
                 <div className="flex flex-col items-center gap-1">
@@ -53,14 +65,6 @@ export default function InviteSection() {
                     {EVENT.address}
                   </p>
                 </div>
-              </Item>
-
-              <GoldDivider className="w-24" />
-
-              <Item>
-                <p className="max-w-xl font-body text-lg font-light leading-relaxed tracking-wide text-cream/90 sm:text-xl">
-                  {EVENT.inviteText}
-                </p>
               </Item>
 
               <Item className="w-full">

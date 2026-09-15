@@ -67,6 +67,33 @@ body {
     backdrop-filter: blur(2px);
   }
 
+  /* Subtle L-shaped gold corner accents at two opposite corners, echoing the
+     primary buttons for a cohesive couture frame. */
+  .card-ornate {
+    position: relative;
+  }
+  .card-ornate::before,
+  .card-ornate::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .card-ornate::before {
+    top: 10px;
+    left: 10px;
+    border-top: 1px solid #c9a24b;
+    border-left: 1px solid #c9a24b;
+  }
+  .card-ornate::after {
+    bottom: 10px;
+    right: 10px;
+    border-bottom: 1px solid #c9a24b;
+    border-right: 1px solid #c9a24b;
+  }
+
   /* Angular buttons: sharp corners, 1px gold hairline, gold glow + a single
      light sweep on hover. btn-gold is primary, btn-outline the lighter twin. */
   .btn-gold,
