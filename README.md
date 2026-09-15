@@ -10,8 +10,9 @@ Deploy target: **Vercel**.
 
 ## Features
 
-- Cinematic intro overlay: the hero photo fades in, then a gold **"Jätka"**
-  button appears; clicking it reveals the page.
+- Cinematic intro hero at the top of a normally scrollable page: the hero
+  photo blurs/fades in, then a gold **"Jätka"** button appears; clicking it
+  smooth-scrolls down to the invite.
 - Invite section driven entirely by `lib/event-config.ts`, with **Google Maps**
   and **Waze** directions buttons built from the address.
 - RSVP form (**"Kas tuled?"**) with attend/decline, name, optional **+1**, and
@@ -100,7 +101,7 @@ app/
   page.tsx              # intro overlay + invite + rsvp + footer
   globals.css           # emerald/gold design system
   admin/page.tsx        # login + dashboard
-  components/           # HeroImage, IntroOverlay, InviteSection, RsvpSection, …
+  components/           # HeroImage, IntroHero, InviteSection, RsvpSection, …
   api/
     rsvp/route.ts             # POST: store an RSVP
     admin/login/route.ts      # POST: server-side login, sets httpOnly cookie
