@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Cormorant_Garamond } from "next/font/google";
+import { Cinzel, Jost } from "next/font/google";
 import { EVENT } from "@/lib/event-config";
 import "./globals.css";
 
@@ -10,10 +10,10 @@ const cinzel = Cinzel({
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
+const jost = Jost({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-cormorant",
+  weight: ["300", "400", "500"],
+  variable: "--font-jost",
   display: "swap",
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="et" className={`${cinzel.variable} ${cormorant.variable}`}>
+    <html lang="et" className={`${cinzel.variable} ${jost.variable}`}>
       <body className="app-backdrop grain font-body">{children}</body>
     </html>
   );

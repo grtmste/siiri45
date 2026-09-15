@@ -67,40 +67,80 @@ body {
     backdrop-filter: blur(2px);
   }
 
-  /* Solid gold button. */
-  .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 font-body text-lg font-semibold tracking-wide transition-all duration-300;
-    color: #0a0b09;
-    background: linear-gradient(180deg, #e7c874, #c9a24b 55%, #9a7b2e);
-    border: 1px solid rgba(231, 200, 116, 0.6);
-  }
-  .btn-gold:hover {
-    box-shadow: 0 0 32px rgba(231, 200, 116, 0.45);
-    filter: brightness(1.05);
-  }
-  .btn-gold:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    box-shadow: none;
-    filter: none;
-  }
-
-  /* Gold outline button (directions, secondary actions). */
+  /* Angular buttons: sharp corners, 1px gold hairline, gold glow + a single
+     light sweep on hover. btn-gold is primary, btn-outline the lighter twin. */
+  .btn-gold,
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-body text-base tracking-wide transition-all duration-300;
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none px-8 py-3 font-body text-sm uppercase tracking-[0.22em] transition-all duration-300;
     color: #f4e9ce;
-    background: rgba(201, 162, 75, 0.06);
-    border: 1px solid rgba(201, 162, 75, 0.5);
+    background: rgba(201, 162, 75, 0.05);
+    border: 1px solid rgba(201, 162, 75, 0.7);
+  }
+  .btn-outline {
+    @apply px-6 tracking-[0.18em];
+    background: rgba(201, 162, 75, 0.04);
+    border-color: rgba(201, 162, 75, 0.5);
+  }
+  .btn-gold:hover,
+  .btn-outline:hover {
+    color: #fbf7ef;
+    border-color: #e7c874;
+    box-shadow: 0 0 28px rgba(231, 200, 116, 0.38);
+    letter-spacing: 0.26em;
   }
   .btn-outline:hover {
-    color: #f4e9ce;
-    background: rgba(201, 162, 75, 0.14);
-    box-shadow: 0 0 22px rgba(231, 200, 116, 0.28);
-    border-color: rgba(231, 200, 116, 0.75);
+    letter-spacing: 0.2em;
+  }
+  /* One-pass shine sweep across the button on hover. */
+  .btn-gold::before,
+  .btn-outline::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(231, 200, 116, 0.28) 50%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    transform: translateX(-130%);
+    transition: transform 0.7s ease;
+  }
+  .btn-gold:hover::before,
+  .btn-outline:hover::before {
+    transform: translateX(130%);
+  }
+  /* Small L-shaped corner accents at two opposite corners (primary only). */
+  .btn-gold::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    pointer-events: none;
+    opacity: 0.6;
+    background:
+      linear-gradient(#e7c874, #e7c874) left top,
+      linear-gradient(#e7c874, #e7c874) left top,
+      linear-gradient(#e7c874, #e7c874) right bottom,
+      linear-gradient(#e7c874, #e7c874) right bottom;
+    background-repeat: no-repeat;
+    background-size: 11px 1px, 1px 11px, 11px 1px, 1px 11px;
+  }
+  .btn-gold:disabled,
+  .btn-outline:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    letter-spacing: 0.22em;
+  }
+  .btn-gold:disabled::before,
+  .btn-outline:disabled::before {
+    display: none;
   }
 
   .field-label {
-    @apply mb-2 block font-body text-base tracking-wide text-cream/80;
+    @apply mb-2 block font-body text-sm uppercase tracking-[0.16em] text-cream/70;
   }
 
   .field-input {
@@ -115,5 +155,25 @@ body {
   .field-input:focus {
     border-color: rgba(231, 200, 116, 0.85);
     box-shadow: 0 0 0 2px rgba(201, 162, 75, 0.2);
+  }
+}
+
+/* Honor reduced-motion: drop the looping/sweeping flourishes, keep plain fades. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-bob,
+  .animate-flicker,
+  .animate-shimmer {
+    animation: none !important;
+  }
+  .btn-gold::before,
+  .btn-outline::before {
+    display: none !important;
+  }
+  .btn-gold:hover,
+  .btn-outline:hover {
+    letter-spacing: 0.22em;
   }
 }

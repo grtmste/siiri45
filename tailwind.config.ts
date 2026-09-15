@@ -24,7 +24,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-cinzel)", "Georgia", "serif"],
-        body: ["var(--font-cormorant)", "Georgia", "serif"],
+        body: ["var(--font-jost)", "system-ui", "sans-serif"],
       },
       boxShadow: {
         glow: "0 0 24px rgba(231, 200, 116, 0.28)",
@@ -35,9 +35,22 @@ const config: Config = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        // Gentle vertical bob + opacity pulse for the intro chevron.
+        bob: {
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.55" },
+          "50%": { transform: "translateY(7px)", opacity: "1" },
+        },
+        // Very faint candle flicker for a single gold accent.
+        flicker: {
+          "0%, 100%": { opacity: "1", textShadow: "0 0 18px rgba(231,200,116,0.35)" },
+          "45%": { opacity: "0.94", textShadow: "0 0 10px rgba(231,200,116,0.22)" },
+          "70%": { opacity: "1", textShadow: "0 0 22px rgba(231,200,116,0.42)" },
+        },
       },
       animation: {
         shimmer: "shimmer 2.4s linear infinite",
+        bob: "bob 1.8s ease-in-out infinite",
+        flicker: "flicker 4.5s ease-in-out infinite",
       },
     },
   },
