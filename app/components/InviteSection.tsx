@@ -35,11 +35,23 @@ export default function InviteSection() {
         <Item>
           <div className="card card-ornate rounded-2xl p-7 sm:p-10">
             <Stagger className="flex flex-col items-center gap-6 text-center">
-              {/* Invitation text lifted to the top. */}
-              <Item>
-                <p className="max-w-xl font-body text-lg font-light leading-relaxed tracking-wide text-cream/90 sm:text-xl">
-                  {EVENT.inviteText}
-                </p>
+              {/* Invitation text lifted to the top; paragraphs left-aligned
+                  for readability, with gold subheadings on the labelled parts. */}
+              <Item className="w-full">
+                <div className="mx-auto flex max-w-xl flex-col gap-5 text-left">
+                  {EVENT.inviteText.map((block, i) => (
+                    <div key={i}>
+                      {block.heading && (
+                        <h3 className="mb-2 font-body text-sm uppercase tracking-[0.2em] text-gold-bright">
+                          {block.heading}
+                        </h3>
+                      )}
+                      <p className="font-body text-base font-light leading-relaxed tracking-wide text-cream/90 sm:text-lg">
+                        {block.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </Item>
 
               <OrnamentDivider className="w-40" />
