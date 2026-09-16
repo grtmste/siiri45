@@ -189,7 +189,51 @@ function Dashboard({
         <StatCard label="Ei tule" value={notComing} />
       </div>
 
-      <div className="mt-10 overflow-hidden rounded-2xl border border-gold/25">
+      {/* Mobile: compact stacked cards — no side-scrolling. */}
+      <div className="mt-8 flex flex-col gap-3 sm:hidden">
+        {rsvps.length === 0 ? (
+          <p className="card rounded-xl p-6 text-center font-body text-cream/50">
+            Vastuseid veel ei ole.
+          </p>
+        ) : (
+          rsvps.map((r) => (
+            <div key={r.id} className="card rounded-xl p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-body text-lg text-cream">{r.name}</div>
+                  <div className="mt-0.5 font-body text-xs tracking-wide text-cream/45">
+                    {formatTime(r.created_at)}
+                  </div>
+                </div>
+                <DeleteButton
+                  name={r.name}
+                  disabled={deletingId === r.id}
+                  onClick={() => handleDelete(r)}
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span
+                  className={`inline-flex rounded-full border px-3 py-1 font-body text-sm tracking-wide ${
+                    r.attending
+                      ? "border-gold/50 bg-gold/10 text-gold-bright"
+                      : "border-cream/20 text-cream/50"
+                  }`}
+                >
+                  {r.attending ? "Tuleb" : "Ei tule"}
+                </span>
+                {r.plus_one && (
+                  <span className="inline-flex rounded-full border border-gold/30 px-3 py-1 font-body text-sm tracking-wide text-cream/80">
+                    +1{r.plus_one_name ? `: ${r.plus_one_name}` : ""}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Tablet / desktop: full table. */}
+      <div className="mt-8 hidden overflow-hidden rounded-2xl border border-gold/25 sm:block">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left">
             <thead>
@@ -234,16 +278,11 @@ function Dashboard({
                     <Td>{r.plus_one_name || "–"}</Td>
                     <Td>{formatTime(r.created_at)}</Td>
                     <Td>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(r)}
+                      <DeleteButton
+                        name={r.name}
                         disabled={deletingId === r.id}
-                        aria-label={`Kustuta vastus: ${r.name}`}
-                        title="Kustuta"
-                        className="inline-flex items-center justify-center rounded-md border border-gold/30 p-2 text-cream/60 transition-colors hover:border-[#E7B4A0]/70 hover:text-[#E7B4A0] disabled:opacity-40"
-                      >
-                        <TrashIcon className="h-4 w-4" />
-                      </button>
+                        onClick={() => handleDelete(r)}
+                      />
                     </Td>
                   </tr>
                 ))
@@ -295,6 +334,29 @@ function Th({ children }: { children: React.ReactNode }) {
 
 function Td({ children }: { children: React.ReactNode }) {
   return <td className="px-4 py-3 text-base">{children}</td>;
+}
+
+function DeleteButton({
+  name,
+  disabled,
+  onClick,
+}: {
+  name: string;
+  disabled: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={`Kustuta vastus: ${name}`}
+      title="Kustuta"
+      className="inline-flex shrink-0 items-center justify-center rounded-md border border-gold/30 p-2 text-cream/60 transition-colors hover:border-[#E7B4A0]/70 hover:text-[#E7B4A0] disabled:opacity-40"
+    >
+      <TrashIcon className="h-4 w-4" />
+    </button>
+  );
 }
 
 function formatTime(iso: string): string {
