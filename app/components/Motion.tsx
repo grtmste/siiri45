@@ -61,6 +61,45 @@ export function Item({
   );
 }
 
+// Self-contained fade + slide-up that reveals as it scrolls into view. Unlike
+// Stagger, it doesn't orchestrate children, so it stays reliable for content
+// taller than the viewport: `amount` is the fraction of THIS element that must
+// be visible to trigger, kept low so a tall card reveals as its top enters.
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  amount = 0.1,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  amount?: number;
+}) {
+  const reduce = useReducedMotion();
+  const variants: Variants = reduce
+    ? { hidden: { opacity: 0 }, show: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 24 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay },
+        },
+      };
+  return (
+    <motion.div
+      className={className}
+      variants={variants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 // Ornamental divider: a gold hairline on each side flanking a small centered
 // diamond. Fades in gently as it enters view. Tasteful, invitation-style.
 export function OrnamentDivider({ className = "" }: { className?: string }) {
