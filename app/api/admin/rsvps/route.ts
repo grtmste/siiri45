@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSql } from "@/lib/db";
+import { ensureSchema, getSql } from "@/lib/db";
 import { isAuthenticated } from "@/lib/auth";
 
 export const runtime = "nodejs";
@@ -10,6 +10,7 @@ export async function GET() {
   }
 
   try {
+    await ensureSchema();
     const sql = getSql();
     const rows = await sql`
       select id, name, attending, plus_one, plus_one_name, created_at

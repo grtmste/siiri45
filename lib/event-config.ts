@@ -2,9 +2,12 @@
 // Every visitor-facing value (except fixed UI labels) comes from here.
 
 export type InviteBlock = {
-  // Optional gold subheading shown above the paragraph.
+  // Optional gold subheading shown above the content.
   heading?: string;
-  text: string;
+  // A paragraph of body copy...
+  text?: string;
+  // ...or a bulleted list (used instead of `text`).
+  items?: string[];
 };
 
 export const EVENT = {
@@ -23,7 +26,14 @@ export const EVENT = {
     },
     {
       heading: "Päevakava ja logistika",
-      text: "Sisseregistreerimine Pargimajja algab alates kell 15:00. Eelmäng enne õhtust pidu on teil suurepärane võimalus ja piisavalt aega, et teha tutvust spaa- ja saunamõnudega. Ametlik peo algus on täpselt kell 19:00. Järgmisel hommikul ootab teid kosutav hommikusöök kell 7:30–10:30. Pärast hommikusööki on taas võimalus end korraks spaas mullitama unustada. Kell 12:00 on aeg pakkida kohvrid ja asuda koduteele.",
+      items: [
+        "Sisseregistreerimine Pargimajja algab alates kell 15:00.",
+        "Eelmäng enne õhtust pidu on teil suurepärane võimalus ja piisavalt aega, et teha tutvust spaa- ja saunamõnudega.",
+        "Ametlik peo algus on täpselt kell 19:00.",
+        "Järgmisel hommikul ootab teid kosutav hommikusöök kell 7:30–10:30.",
+        "Pärast hommikusööki on taas võimalus end korraks spaas mullitama unustada.",
+        "Kell 12:00 on aeg pakkida kohvrid ja asuda koduteele.",
+      ],
     },
     {
       heading: "Teie kohustuslik reisi-varustus",

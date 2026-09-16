@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSql } from "@/lib/db";
+import { ensureSchema, getSql } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -30,6 +30,7 @@ export async function POST(request: Request) {
   const plusOneName = attending && plusOne && plusOneNameRaw ? plusOneNameRaw : null;
 
   try {
+    await ensureSchema();
     const sql = getSql();
     await sql`
       insert into rsvps (name, attending, plus_one, plus_one_name)

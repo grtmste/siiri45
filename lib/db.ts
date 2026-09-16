@@ -14,3 +14,30 @@ export function getSql() {
   }
   return neon(url);
 }
+
+// Create the rsvps table if it doesn't exist yet, so the app works even when
+// db/schema.sql hasn't been run manually (as long as DATABASE_URL is set).
+// Memoized per server instance so it runs at most once per cold start.
+let schemaReady: Promise<void> | null = null;
+export function ensureSchema(): Promise<void> {
+  if (!schemaReady) {
+    const sql = getSql();
+    schemaReady = (async () => {
+      await sql`
+        create table if not exists rsvps (
+          id uuid primary key default gen_random_uuid(),
+          name text not null,
+          attending boolean not null,
+          plus_one boolean not null default false,
+          plus_one_name text,
+          created_at timestamptz not null default now()
+        )
+      `;
+    })().catch((err) => {
+      // Reset so a later request can retry (e.g. transient connection issue).
+      schemaReady = null;
+      throw err;
+    });
+  }
+  return schemaReady;
+}

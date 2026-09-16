@@ -46,9 +46,25 @@ export default function InviteSection() {
                       {block.heading}
                     </h3>
                   )}
-                  <p className="font-body text-base font-light leading-relaxed tracking-wide text-cream/90 sm:text-lg">
-                    {block.text}
-                  </p>
+                  {block.items ? (
+                    <ul className="flex flex-col gap-2.5">
+                      {block.items.map((item, j) => (
+                        <li key={j} className="flex gap-3">
+                          <span
+                            aria-hidden="true"
+                            className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rotate-45 bg-gold/70"
+                          />
+                          <span className="font-body text-base font-light leading-relaxed tracking-wide text-cream/90 sm:text-lg">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="font-body text-base font-light leading-relaxed tracking-wide text-cream/90 sm:text-lg">
+                      {block.text}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
