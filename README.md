@@ -18,8 +18,8 @@ Deploy target: **Vercel**.
 - RSVP form (**"Kas tuled?"**) with attend/decline, name, optional **+1**, and
   graceful loading/error/confirmation states.
 - Password-protected **/admin** dashboard: summary cards + a newest-first table
-  of every response. Auth is checked server-side; the password never ships to
-  the client.
+  of every response, with per-row delete. Auth is checked server-side; the
+  password never ships to the client.
 
 ## 1. Install
 

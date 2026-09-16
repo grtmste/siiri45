@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { TrashIcon } from "../components/icons";
 
 type Rsvp = {
   id: string;
@@ -52,7 +53,7 @@ export default function AdminPage() {
     return <LoginForm onSuccess={load} />;
   }
 
-  return <Dashboard rsvps={rsvps} onLogout={handleLogout} />;
+  return <Dashboard rsvps={rsvps} onLogout={handleLogout} onReload={load} />;
 }
 
 function LoginForm({ onSuccess }: { onSuccess: () => void }) {
@@ -138,14 +139,35 @@ function LoginForm({ onSuccess }: { onSuccess: () => void }) {
 function Dashboard({
   rsvps,
   onLogout,
+  onReload,
 }: {
   rsvps: Rsvp[];
   onLogout: () => void;
+  onReload: () => void | Promise<void>;
 }) {
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
   const attendingCount = rsvps.filter((r) => r.attending).length;
   const plusOneCount = rsvps.filter((r) => r.plus_one).length;
   const totalPeople = attendingCount + plusOneCount;
   const notComing = rsvps.filter((r) => !r.attending).length;
+
+  async function handleDelete(r: Rsvp) {
+    const ok = window.confirm(
+      `Kas oled kindel, et soovid kustutada vastuse: ${r.name}?`
+    );
+    if (!ok) return;
+    setDeletingId(r.id);
+    try {
+      const res = await fetch(`/api/admin/rsvps/${r.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("delete failed");
+      await onReload();
+    } catch {
+      window.alert("Kustutamine ebaõnnestus, proovi uuesti.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-12">
@@ -177,13 +199,16 @@ function Dashboard({
                 <Th>+1</Th>
                 <Th>Kaaslase nimi</Th>
                 <Th>Aeg</Th>
+                <Th>
+                  <span className="sr-only">Kustuta</span>
+                </Th>
               </tr>
             </thead>
             <tbody>
               {rsvps.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="px-4 py-8 text-center font-body text-lg text-cream/50"
                   >
                     Vastuseid veel ei ole.
@@ -208,6 +233,18 @@ function Dashboard({
                     <Td>{r.plus_one ? "Jah" : "–"}</Td>
                     <Td>{r.plus_one_name || "–"}</Td>
                     <Td>{formatTime(r.created_at)}</Td>
+                    <Td>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(r)}
+                        disabled={deletingId === r.id}
+                        aria-label={`Kustuta vastus: ${r.name}`}
+                        title="Kustuta"
+                        className="inline-flex items-center justify-center rounded-md border border-gold/30 p-2 text-cream/60 transition-colors hover:border-[#E7B4A0]/70 hover:text-[#E7B4A0] disabled:opacity-40"
+                      >
+                        <TrashIcon className="h-4 w-4" />
+                      </button>
+                    </Td>
                   </tr>
                 ))
               )}
