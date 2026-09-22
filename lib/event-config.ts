@@ -19,29 +19,24 @@ export const EVENT = {
   address: "Wagenküll, Taagepera",
   inviteText: [
     {
-      text: "Kuna talviste reisiplaanide tegemine kogub juba hoogsasti tuure, siis annan teile aegsasti teada, et jätke palun 5.–6. veebruar oma reisigraafikust välja. Eksootilised palmisaared ja lumised suusakuurordid võivad sel nädalavahetusel oodata – maailma parim seltskond koguneb hoopis Taageperas.",
+      text: "Kuna talviste reisiplaanide tegemine kogub juba hoogsasti tuure, siis teavitan aegsasti, et 5.–6. veebruar paluks plaanidest välja jätta. Eksootilised palmisaared ja lumised suusakuurordid võivad sel nädalavahetusel oodata – maailma parim seltskond koguneb hoopis Taageperra!",
     },
     {
-      text: "Mul on suur rõõm kutsuda teid Wagenkülli Talvevõlumaale, et pidada üheskoos maha üks igati meeleolukas ja särtsakas koosviibimine. Et teie reisiotsust veelgi mugavamaks teha, on minu poolt teile täispakett: luksuslik ööbimine ning sauna- ja spaamõnude külastus.",
+      text: "Kutsun teid Wagenkülli Talvevõlumaale meeleolukale koosviibimisele. Ees ootab suur juubelipidu koos luksusliku ööbimise ning sauna- ja spaamõnudega.",
     },
     {
-      heading: "Päevakava ja logistika",
+      heading: "Mis, kus ja millal",
       items: [
-        "Sisseregistreerimine Pargimajja algab alates kell 15:00.",
-        "Eelmäng enne õhtust pidu on teil suurepärane võimalus ja piisavalt aega, et teha tutvust spaa- ja saunamõnudega.",
-        "Ametlik peo algus on täpselt kell 19:00.",
-        "Järgmisel hommikul ootab teid kosutav hommikusöök kell 7:30–10:30.",
-        "Pärast hommikusööki on taas võimalus end korraks spaas mullitama unustada.",
-        "Kell 12:00 on aeg pakkida kohvrid ja asuda koduteele.",
+        "Sisseregistreerimine Pargimajja alates kell 15:00. Võimalus nautida spaa- ja saunamõnusid.",
+        "Pidu algab kell 19:00 ja kestab varajaste hommikutundideni.",
+        "Peojärgsel hommikul pakutakse kosutavat hommikusööki.",
+        "Pärast hommikusööki on võimalus end spaas turgutada.",
+        "Tubade tagastamine ja koduteele asumine kell 12:00.",
       ],
     },
     {
-      heading: "Teie kohustuslik reisi-varustus",
-      text: "Elegantne supelustrikoo või ujumisriided (mullivannid ootavad teid juba pärastlõunast). Löögivalmis peomeeleolu.",
-    },
-    {
-      heading: "Kingitustest ja floristikast",
-      text: "Kingituse osas ei pea te pead vaevama ega üle mõtlema. Soovin endale soetada päris oma isikliku maali ja selle tarbeks piisab täiesti, kui leiate ümbrikusse ühe sobiva kupüüri. Mis puutub lilledesse, siis on minu suur palve need seekord lillepoodi jätta – hoiame loodust ja säästame teid lillevaaside ostmisest.",
+      heading: "Kingisoov",
+      text: "Kingitus võiks mahtuda ümbrikusse - soovin endale soetada päris oma isikliku maali. Lilled jätame seekord lillepoodi – hoiame loodust ja säästame teid lillevaaside ostmisest. 🙂",
     },
   ] as InviteBlock[],
 };
